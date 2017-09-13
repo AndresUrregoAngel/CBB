@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/BD4.iml" filepath="$PROJECT_DIR$/.idea/BD4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../DC_Ubity/.idea/DC_Ubity.iml" filepath="$PROJECT_DIR$/../DC_Ubity/.idea/DC_Ubity.iml" />
+      <module fileurl="file://$USER_HOME$/Documents/GitHub/CBB/Python_Cours/.idea/Python_Cours.iml" filepath="$USER_HOME$/Documents/GitHub/CBB/Python_Cours/.idea/Python_Cours.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SAS/.idea/SAS.iml" filepath="$PROJECT_DIR$/../SAS/.idea/SAS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TPETL/.idea/TPETL.iml" filepath="$PROJECT_DIR$/../TPETL/.idea/TPETL.iml" />
+    </modules>
+  </component>
+</project>
