@@ -12,8 +12,8 @@ def getoutboundfiles(accountcode):
     # Here are your accounts (canada and france)
     # ACCOUNTS = ['dis0003', 'dis0006']
     # Your admin login and password
-    username = "nmanseau@distech-controls.com"
-    password = "ubity2015"
+    username = "x"
+    password = "x"
     root = "https://studio.ubity.com"
     s = requests.Session()
 
