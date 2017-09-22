@@ -1,0 +1,12 @@
+{
+   "door": 4,
+   "transmition": "manual",
+   "brand": "mazda",
+   "model": "4x4",
+   "color": "red",
+   "accessories": {
+      "mode_croisiere": false,
+      "toit_ouvrant": true,
+      "option_turbo_chargeurs": 4
+   }
+}

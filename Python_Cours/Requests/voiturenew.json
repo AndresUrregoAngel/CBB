@@ -1,0 +1,14 @@
+{
+   "voiturette": {
+      "porte": 4,
+      "transmission": "automatique",
+      "marque": "Hyundai",
+      "modele": "Accent",
+      "couleur": "Noir",
+      "accessoires": {
+         "mode_croisiere": false,
+         "toit_ouvrant": true,
+         "option_turbo_chargeurs": 4
+      }
+   }
+}
