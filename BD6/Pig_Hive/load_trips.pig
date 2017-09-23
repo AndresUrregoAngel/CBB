@@ -15,4 +15,7 @@ trips_gr_total = FOREACH trips_stations_gr GENERATE  FLATTEN(group) as (departur
 
 trips_srt = ORDER trips_gr_total BY qty_trips DESC;
 
-order_by_data = ORDER student_details BY age DESC;
+# top ten trips year 2017
+trips_ck = LIMIT trips_srt 10;
+
+## Get the relation between qty of trips and the stations with most damages
