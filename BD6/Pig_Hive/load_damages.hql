@@ -67,17 +67,17 @@ FROM
     bixidy.n,
     bixidy.s,
     bixidy.day_month,
-    SUM(bixidy.dx),
+    AVG(bixidy.dx),
     total_qty.total_dx,
-    SUM(bixidy.bx),
+    AVG(bixidy.bx),
     total_qty.total_bx
   FROM 
     bixi_status_station bixidy INNER JOIN  
   (SELECT 
    n,
    s,
-   SUM(dx) as total_dx,
-   SUM(bx) as total_bx
+   AVG(dx) as total_dx,
+   AVG(bx) as total_bx
   FROM 
     bixi_status_station
   GROUP BY n,s) total_qty
@@ -93,8 +93,8 @@ AS
 SELECT 
    n,
    s,
-   SUM(dx) as total_dx,
-   SUM(bx) as total_bx
+   CAST(AVG(dx) as decimal(20,2)) as total_dx,
+   CAST(AVG(bx) as decimal(20,2)) as total_bx
   FROM 
     bixi_status_station
   GROUP BY n,s
