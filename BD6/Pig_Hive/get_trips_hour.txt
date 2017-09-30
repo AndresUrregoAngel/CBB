@@ -101,8 +101,8 @@ FROM
     sta.s as station_name,
     sta.n as station_id,
     sta.hour_status,
-    AVG(sta.dx) as places_broken,
-    AVG(sta.bx) as bikes_broken,
+    CAST(AVG(sta.dx)as decimal (10,2)) as places_broken,
+    CAST(AVG(sta.bx)as decimal (10,2)) as bikes_broken,
     tr.qty_trips 
   FROM
     bixi_status_station sta
