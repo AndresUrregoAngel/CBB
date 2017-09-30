@@ -52,7 +52,7 @@ FROM
   temp.s,
   temp.n,
   from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'yyyy-MM-dd HH:mm') as bixi_date,
-  dayofmonth(from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'yyyy-MM-dd HH:mm')) as day_month,
+  CAST(from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'HH') AS int) as hour_status, 
   temp.da,
   temp.dx,
   temp.ba,
@@ -61,42 +61,24 @@ FROM
   bixi_his
   LATERAL VIEW explode(stations) exploded_table as temp;
   
-# Relation damages by day per station just to ensure a relation between the total damages and the issues per day
+# Get AVG damages, qty trips per hour by station top 10
+  SELECT 
+    sta.s as station_name,
+    sta.n as station_id,
+    sta.hour_status,
+    AVG(sta.dx) as places_broken,
+    AVG(sta.bx) as bikes_broken,
+    tr.qty_trips 
+  FROM
+    bixi_status_station sta
+  INNER JOIN trips_hour tr
+    ON sta.n = tr.departure_station
+    AND sta.hour_status = tr.trip_hour
+  GROUP BY sta.s,sta.n,sta.hour_status,tr.qty_trips
+  ORDER BY tr.qty_trips,places_broken,bikes_broken DESC
+  LIMIT 100;
 
-  SELECT
-    bixidy.n,
-    bixidy.s,
-    bixidy.day_month,
-    AVG(bixidy.dx),
-    total_qty.total_dx,
-    AVG(bixidy.bx),
-    total_qty.total_bx
-  FROM 
-    bixi_status_station bixidy INNER JOIN  
-  (SELECT 
-   n,
-   s,
-   AVG(dx) as total_dx,
-   AVG(bx) as total_bx
-  FROM 
-    bixi_status_station
-  GROUP BY n,s) total_qty
-ON bixidy.n = total_qty.n
-GROUP BY bixidy.n,bixidy.s,bixidy.day_month,total_qty.total_dx,total_qty.total_bx
-ORDER BY total_qty.total_dx DESC
-LIMIT 20;
-
-# General damages
-# Output required
-CREATE VIEW bixi_stations_damages
-AS
-SELECT 
-   n,
-   s,
-   CAST(AVG(dx) as decimal(20,2)) as total_dx,
-   CAST(AVG(bx) as decimal(20,2)) as total_bx
-  FROM 
-    bixi_status_station
-  GROUP BY n,s
-  ORDER BY total_dx DESC
-  LIMIT 10;
+ 
+ 
+ 
+ 
