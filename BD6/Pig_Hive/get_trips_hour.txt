@@ -14,7 +14,7 @@
   
   trips_fl = FOREACH trips GENERATE $1,GetHour(ToDate($0)) as (hour:int);
   trips_gr = GROUP trips_fl BY (departure_station,hour);
-  trips_counting = FOREACH trips_gr GENERATE FLATTEN(group) as (departure_station,hour), COUNT_STAR(trips_fl) as (qty:int);
+  trips_counting = FOREACH trips_gr GENERATE FLATTEN(group) as (departure_station,hour), AVG(trips_fl) as (qty:int);
   STORE trips_counting INTO '/user/ingenieroandresangel/datasets/bixioutputs/tripshour/' USING PigStorage (',');
   
   
