@@ -6,15 +6,36 @@
 ## Get the qty of departures from station by hour
 
   ## get into the console 
-  
   pig -x tez -useHCatalog
-
+  ## load historical usage files per month
   trips = LOAD '/user/ingenieroandresangel/datasets/bixitrips/' USING PigStorage(',')
   AS (departure_date:chararray,departure_station:chararray,arrival_date:chararray,arrival_station:chararray,duration:long,member:int);
   
-  trips_fl = FOREACH trips GENERATE $1,GetHour(ToDate($0)) as (hour:int);
-  trips_gr = GROUP trips_fl BY (departure_station,hour);
-  trips_counting = FOREACH trips_gr GENERATE FLATTEN(group) as (departure_station,hour), AVG(trips_fl) as (qty:int);
+  ## Get independent relations by departure and arrival
+  trips_dp = FOREACH trips GENERATE $1,GetDay(ToDate($0)) as (day:int),GetHour(ToDate($0)) as (hour:int);
+  trips_ar = FOREACH trips GENERATE $3,GetHour(ToDate($2)) as (hour:int);
+  
+  trips_gr_dp  = GROUP trips_dp BY (departure_station,day,hour);
+  trips_gr_ar  = GROUP trips_ar BY (arrival_station,day,hour);
+  
+  ## Get the avg of departure 
+  trips_dp_qty = FOREACH trips_gr_dp {
+              qty_trips = COUNT(trips_dp);
+              GENERATE FLATTEN(group) as (departure_station,day,hour), qty_trips as (qty_dp_trip:int);
+              };
+  
+  STORE trips_dp_qty INTO '/user/ingenieroandresangel/datasets/bixioutputs/tripsdp/' USING PigStorage (',');
+  
+  trips_dp = LOAD '/user/ingenieroandresangel/datasets/bixioutputs/tripsdp/' USING PigStorage (',');
+  trips_dp_qty_gr = GROUP trips_dp by ($0,$2);
+  trips_dp_myn = FOREACH trips_dp_qty_gr GENERATE FLATTEN(group) as (departure_station,hour), (double) ROUND_TO(AVG(trips_dp.$3),2) as (myn_dp:double);
+  
+  ## Get the avg for arrival
+  
+  trips_ar_myn = FOREACH trips_gr_ar GENERATE FLATTEN(group) as (arrival_station,hour), AVG(trips_ar) as (myn_ar_trip:int);
+  
+  trips_myn = JOIN trips_dp_myn by departure_station, trips_ar_myn by arrival_station;
+  
   STORE trips_counting INTO '/user/ingenieroandresangel/datasets/bixioutputs/tripshour/' USING PigStorage (',');
   
   
