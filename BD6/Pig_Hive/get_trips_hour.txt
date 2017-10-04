@@ -33,43 +33,32 @@
   
   trips_total_ardp = JOIN trips_dp_qty by (departure_station,day,hour) , trips_ar_qty by (arrival_station,day,hour);
   
-  trips_ardp = FOREACH  trips_total_ardp GENERATE (chararray) trips_dp_qty::departure_station as (stationid:chararray), trips_dp_qty::day as (day:int), trips_dp_qty::hour as (hour:int), trips_dp_qty::qty_dp_trip as (qty_dp_trips:int), trips_ar_qty::qty_ar_trip as (qty_ar_trips:int);
-  
-    ###################################################################
-    ###### Create table in Hive to store the pig output ###############
-    ###################################################################
+  trips_ardp = FOREACH  trips_total_ardp GENERATE (chararray) trips_dp_qty::departure_station as (stationid:chararray), (int) trips_dp_qty::day as (day:int), (int)  trips_dp_qty::hour as (hour:int), (int) trips_dp_qty::qty_dp_trip as (qty_dp_trips:int), (int) trips_ar_qty::qty_ar_trip as (qty_ar_trips:int);
+
+ ## Store the final pig output 
  
- 
- CREATE TABLE bixi_trips_ardp
- ( stationid string, day int, hour int, qty_dp_trips int, qty_ar_trips int)
- COMMENT 'This table will store the Pig result to get the station qty trips per hour by day'
- ROW FORMAT DELIMITED
- FIELDS TERMINATED BY ','
- LINES TERMINATED BY '\n'
- STORED AS TEXTFILE;
- 
- ## Store the final pig output in hive
- 
- STORE trips_ardp INTO 'poc.bixi_trips_ardp' USING org.apache.hive.hcatalog.pig.HCatStorer ();
+ STORE trips_ardp INTO '/user/ingenieroandresangel/datasets/bixioutputs/tripsardp/' USING PigStorage (',');
                                                    
   
 ##################################################################################################
 ########## Hive script ###########################################################################
 ##################################################################################################
   
-## Load the qty trips per hour
+## Load the qty trips per hour / qty departures and arrivals by station per hour
 
-CREATE EXTERNAL TABLE trips_hour
-( departure_station string, trip_hour int, qty_trips int)
-COMMENT 'Load qty trips per station by hour'
+CREATE EXTERNAL TABLE bixi_trips_ardp
+(stationid int, day int, hour int, qty_dp_trips int, qty_ar_trips int)
+COMMENT 'qty departures and arrivals by station per hour'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
-LOCATION '/user/ingenieroandresangel/datasets/bixioutputs/tripshour/';
+LOCATION '/user/ingenieroandresangel/datasets/bixioutputs/tripsardp/';
 
-#this command will improve the query performance, tez is a nice feature to avoid go thru map reduce as query engine
+
+#this command will improve the query performance, tez is a nice feature to avoid go thru map reduce as query engine and the reducer CPU
 set hive.execution.engine=tez; 
+et hive.vectorized.execution.enabled = true;
 
 #Load historical files coming from the json files
 CREATE EXTERNAL TABLE bixi_his
@@ -121,7 +110,7 @@ FROM
   SELECT 
   temp.s,
   temp.n,
-  from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'yyyy-MM-dd HH:mm') as bixi_date,
+  CAST(from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'dd') AS int) as day_status, 
   CAST(from_unixtime(CAST(CAST(temp.lu as bigint)/1000 as BIGINT), 'HH') AS int) as hour_status, 
   temp.da,
   temp.dx,
@@ -138,12 +127,14 @@ FROM
     sta.hour_status,
     CAST(AVG(sta.dx)as decimal (10,2)) as places_broken,
     CAST(AVG(sta.bx)as decimal (10,2)) as bikes_broken,
-    tr.qty_trips 
+    CAST(AVG(tr.qty_dp_trips)as decimal (10,2)) as trips_dp,
+    CAST(AVG(tr.qty_ar_trips)as decimal (10,2)) as trips_ar
   FROM
     bixi_status_station sta
-  INNER JOIN trips_hour tr
-    ON sta.n = tr.departure_station
-    AND sta.hour_status = tr.trip_hour
-  GROUP BY sta.s,sta.n,sta.hour_status,tr.qty_trips
-  ORDER BY tr.qty_trips DESC
+  INNER JOIN bixi_trips_ardp tr
+    ON sta.n = tr.stationid
+    AND sta.day_status = tr.day
+    AND sta.hour_status = tr.hour
+  GROUP BY sta.s,sta.n,sta.hour_status
+  ORDER BY trips_dp,trips_ar DESC
   LIMIT 100;
