@@ -29,17 +29,29 @@
   trips_ar_qty = FOREACH trips_gr_ar {
               qty_trips = COUNT(trips_ar);
               GENERATE FLATTEN(group) as (arrival_station,day,hour), qty_trips as (qty_ar_trip:int);
-              };
-  
-  trips_dp_qty_fl = FILTER trips_dp_qty BY departure_station == '10002';
-  trips_ar_qty_fl = FILTER trips_ar_qty BY arrival_station == '10002';
-  
+              }; 
   
   trips_total_ardp = JOIN trips_dp_qty by (departure_station,day,hour) , trips_ar_qty by (arrival_station,day,hour);
   
   trips_ardp = FOREACH  trips_total_ardp GENERATE (chararray) trips_dp_qty::departure_station as (stationid:chararray), trips_dp_qty::day as (day:int), trips_dp_qty::hour as (hour:int), trips_dp_qty::qty_dp_trip as (qty_dp_trips:int), trips_ar_qty::qty_ar_trip as (qty_ar_trips:int);
   
-  trips_ardp_ck = LIMIT trips_ardp 10;
+    ###################################################################
+    ###### Create table in Hive to store the pig output ###############
+    ###################################################################
+ 
+ 
+ CREATE TABLE bixi_trips_ardp
+ ( stationid string, day int, hour int, qty_dp_trips int, qty_ar_trips int)
+ COMMENT 'This table will store the Pig result to get the station qty trips per hour by day'
+ ROW FORMAT DELIMITED
+ FIELDS TERMINATED BY ','
+ LINES TERMINATED BY '\n'
+ STORED AS TEXTFILE;
+ 
+ ## Store the final pig output in hive
+ 
+ STORE trips_ardp INTO 'poc.bixi_trips_ardp' USING org.apache.hive.hcatalog.pig.HCatStorer ();
+                                                   
   
 ##################################################################################################
 ########## Hive script ###########################################################################
