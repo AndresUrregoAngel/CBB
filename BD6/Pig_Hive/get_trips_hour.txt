@@ -31,9 +31,11 @@
               GENERATE FLATTEN(group) as (arrival_station,day,hour), qty_trips as (qty_ar_trip:int);
               };
   
+  trips_dp_qty_fl = FILTER trips_dp_qty BY departure_station == '10002';
+  trips_ar_qty_fl = FILTER trips_ar_qty BY arrival_station == '10002';
   
   
-  trips_total_ardp = JOIN trips_dp_qty by departure_station, trips_ar_qty by arrival_station;
+  trips_total_ardp = JOIN trips_dp_qty by (departure_station,day,hour) , trips_ar_qty by (arrival_station,day,hour);
   
   trips_ardp = FOREACH  trips_total_ardp GENERATE (chararray) trips_dp_qty::departure_station as (stationid:chararray), trips_dp_qty::day as (day:int), trips_dp_qty::hour as (hour:int), trips_dp_qty::qty_dp_trip as (qty_dp_trips:int), trips_ar_qty::qty_ar_trip as (qty_ar_trips:int);
   
