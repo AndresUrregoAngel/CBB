@@ -1,7 +1,7 @@
 
 --link to get the jar https://github.com/romainr/cdh-twitter-example#setting-up-hive
 -- Load required JAR and set hive parametters
-set hive.execution.engine=tez;
+--set hive.execution.engine=tez;
 set hive.vectorized.execution.enabled=true;
 set hive.auto.convert.join = false;
 ADD JAR /home/cloudera/Downloads/hive-serdes-1.0-SNAPSHOT.jar;
