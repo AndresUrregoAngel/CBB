@@ -35,9 +35,9 @@ for k,v in data.items():
 file = "http://www.androidquebec.com/wp-content/uploads/2010/11/contacts.json"
 data = requests.get(file)
 datafinal = data.json()
-#print(datafinal)
-result = datafinal["contacts"]
+print(datafinal)
+#result = datafinal["contacts"]
 
-for k in result:
-    print(k['id'])
+#for k in result:
+#    print(k['id'])
 
