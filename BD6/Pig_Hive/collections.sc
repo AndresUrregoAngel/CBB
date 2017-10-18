@@ -33,4 +33,19 @@ object Hello extends App {
   
  }
  
+
+## exercises collections
+
+-- (1)
+
+
+val list = List(15, 39, 22, 98, 37, 19, 5)
+var z:Int = 0
+for (i<- list){
+  z=list(>_i)
+}
+
+println("the total is:",z)
+
+
  
