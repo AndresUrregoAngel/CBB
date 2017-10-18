@@ -18,6 +18,10 @@ LINES TERMINATED BY '\n'
 STORED AS TEXTFILE
 LOCATION '/user/cloudera/bixi/results/tripsardp/';
 
+CREATE EXTERNAL TABLE IF NOT EXISTS bixi_mapre
+(station_info String, trips String)
+
+
 
 -- Load the historical json files
 
