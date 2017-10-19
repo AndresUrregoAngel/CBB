@@ -18,7 +18,7 @@ object practiqueI extends App{
   println("the total is:",z)*/
 
 //exercise 2
-/*
+  /*
   val list_txt = List("Introduction à la programmation ",
     "Practique de la programmation",
     "Structure de données",
@@ -26,7 +26,7 @@ object practiqueI extends App{
     "Algorithme","Langages de programmation")
 
 
-  def wordrepeted(some: _*) : Int =  {
+  def wordrepeted(some:List[String]) : Int =  {
     var  counter_word:Int = 0
     var counter_nword: Int =0
     val word_cle: String = "programmation"
