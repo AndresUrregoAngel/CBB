@@ -12,7 +12,6 @@ class employee:
 
 class EmployeeList(list):
 
-
     def AddNewEmployee (self,emp):
 
         for emptemp in self:
