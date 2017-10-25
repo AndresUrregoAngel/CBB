@@ -24,11 +24,14 @@ object Exe_praIII extends App{
     "Algorithmie",
     "Langages de Programmation")
 
-  var somme :Int = 0
-//  if (inputh_list.forall( x => x.toLowerCase == "programmation" )) somme += 1
-  inputh_list.forall( x => x.toLowerCase == "programmation" )
-  print(somme)
 
+//  if (inputh_list.forall( x => x.toLowerCase == "programmation" )) somme += 1
+  var somme  = inputh_list.count( _.contains("Programmation") )
+  println(somme)
+
+
+  var sommen  = inputh_list.count( _.contains("Programmation") )
+  println(sommen)
 
 
 
