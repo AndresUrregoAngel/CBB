@@ -11,3 +11,4 @@ class Bmi:
 
     def __str__(self):
         return "nom: {0:<10} et age:{1:2d}".format(self.nom ,self.age)
+

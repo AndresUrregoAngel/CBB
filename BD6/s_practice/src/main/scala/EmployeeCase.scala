@@ -5,18 +5,21 @@ object EmployeeCase extends App {
 
   case class Employee(var name: String, var lastname: String, var age: Int)
 
-  case class EmployeeList() {
+  class EmployeeList() {
 
     var listempl = new ListBuffer[Employee]()
 
     def addnewemployee(empl: Employee): ListBuffer[Employee] = {
-
+      var sortie = false
       for (currempl <- listempl) {
         if (empl == currempl) {
-          println("the employee is duplicated verify the recod: ", empl)
+          println("the employee is duplicated verify the record: ", empl)
+          sortie = true
         }
       }
-       listempl += empl
+      if (!sortie) listempl += empl
+      listempl
+
     }
 
     def printlist(): Unit = {
@@ -31,7 +34,7 @@ object EmployeeCase extends App {
   val ObjE2 = Employee("juan", "urrego", 32)
   val ObjE3 = ObjE1.copy()
 
-  var container = EmployeeList()
+  var container = new EmployeeList()
   //println(ObjE1)
   container.addnewemployee(ObjE1)
   container.addnewemployee(ObjE2)
