@@ -30,7 +30,7 @@ object Exe_praIII extends App{
   println(somme)
 
 
-  var sommen  = inputh_list.count( _.contains("Programmation") )
+  var sommen  = inputh_list.count( _.toLowerCase.contains("programmation") )
   println(sommen)
 
 
