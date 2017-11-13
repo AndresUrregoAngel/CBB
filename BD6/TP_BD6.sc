@@ -6,5 +6,8 @@ sc
 val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
 //load the file info
-val def = sqlContext.read.text("/home/ingenieroandresangel/scalascripts/customer.txt")
-df.show()
+val customer_rdd = sc.textFile("file:////home/ingenieroandresangel/scalascripts/customer.txt")
+val cusstomerdf = customer_rdd.toDF()
+
+//val def = sqlContext.read.text("/home/ingenieroandresangel/scalascripts/customer.txt")
+//df.show()
