@@ -9,7 +9,8 @@ val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 val customer_file = sc.textFile("file:////home/ingenieroandresangel/scalascripts/customer.txt")
 val customer_rdd = customer_file.map(_.split(",")).map(p => customer(p(0).toInt,p(1),p(2),p(3),p(4)))
 
-val cusstomerdf = customer_rdd.toDF()
+val dfClient = customer_rdd.toDF()
+val dfClient_name = dfClient.select("name")
 
 //val def = sqlContext.read.text("/home/ingenieroandresangel/scalascripts/customer.txt")
 //df.show()
