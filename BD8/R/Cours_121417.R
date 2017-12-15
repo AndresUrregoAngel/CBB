@@ -61,4 +61,13 @@ x <- 1:4
 x / c(2,2)
 length(x)
 
+#############################################################
 
+v <- c(1.2,3,5,45,23,2.5,15,12)
+m <- matrix(v,nrow=4,ncol=2) # add byrow= T , to get the filling by row
+print(m)
+
+
+x <- 1:12
+dim(x)<- c(3,4)
+x[,4] # print 10
