@@ -36,6 +36,14 @@ rm (euro)
 # vector
 
 a <- c(1,3,5,568,0,11)
+a[4]
+a[-4]
+a[2:5]
+a[4] <- 2+a[1]
+a
+a[c(1,4)]
+
+
 b <- 10:20
 b
 
@@ -46,5 +54,11 @@ v
 y <-  rep(1:3, time=4,each=5)
 y
 
+
+# divide array
+
+x <- 1:4
+x / c(2,2)
+length(x)
 
 
