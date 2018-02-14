@@ -1,0 +1,8 @@
+Supervise
+Linear regression (practique)
+non supervise
+K-means (practique)
+
+
+theory
+LR,Recommende,Naive
