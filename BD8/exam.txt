@@ -6,3 +6,6 @@ K-means (practique)
 
 theory
 LR,Recommende,Naive
+
+
+completed
