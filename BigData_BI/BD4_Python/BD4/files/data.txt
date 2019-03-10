@@ -1,0 +1,7 @@
+tv 14 399.95
+boisson 132 0.32
+fromage 58 1.92
+pain 28 0.29
+stylo 25 1.75
+laptop 409 695.12
+cahier 142 2.08
