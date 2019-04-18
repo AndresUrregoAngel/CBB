@@ -1,0 +1,43 @@
+{'http-equiv': 'X-UA-Compatible', 'content': 'IE=edge'}
+{'name': 'viewport', 'content': 'user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width'}
+{'name': 'robots', 'content': 'noarchive, noodp'}
+{'property': 'og:type', 'content': 'company'}
+{'property': 'og:image', 'content': 'http://mw2.wsj.net/mw5/content/logos/mw_logo_social.png'}
+{'name': 'name', 'content': 'Canadian Dollar'}
+{'name': 'tickerSymbol', 'content': 'USDCAD'}
+{'name': 'chartingSymbol', 'content': 'CURRENCY/US/XTUP/USDCAD'}
+{'name': 'instrumentType', 'content': 'Currency'}
+{'name': 'exchange', 'content': 'Tullett Prebon'}
+{'name': 'exchangeCountry', 'content': 'US'}
+{'property': 'og:title', 'content': 'Canadian Dollar'}
+{'name': 'exchangeIso', 'content': 'XTUP'}
+{'name': 'exchangeTimezone', 'content': '(UTC-05:00) Eastern Time (US & Canada)'}
+{'name': 'price', 'content': '1.3355'}
+{'name': 'priceChange', 'content': '0.0013'}
+{'name': 'priceChangePercent', 'content': '0.10%'}
+{'name': 'quoteTime', 'content': 'Apr 17, 2019 8:30 p.m.'}
+{'name': 'priceCurrency', 'content': 'CAD'}
+{'name': 'keywords', 'content': 'USDCAD, USDCAD analyst estimates, USDCAD earnings estimates, USDCAD share estimates, USDCAD analyst recommendations, USDCAD ratings, Canadian Dollar analyst estimates, Canadian Dollar earnings estimates, Canadian Dollar analyst recommendations, Canadian Dollar analyst ratings'}
+{'name': 'description', 'content': 'Canadian Dollar currency overview from MarketWatch.'}
+{'name': 'url', 'content': 'https://www.marketwatch.com/investing/currency/usdcad'}
+{'property': 'og:url', 'content': 'https://www.marketwatch.com/investing/currency/usdcad'}
+{'name': 'apple-itunes-app', 'content': 'app-id=336693422'}
+{'name': 'fb:app_id', 'content': '283204329838'}
+{'property': 'fb:pages', 'content': '131043201847'}
+{'property': 'og:site_name', 'content': 'MarketWatch'}
+{'name': 'twitter:site:id', 'content': '624413'}
+{'name': 'twitter:domain', 'content': 'marketwatch.com'}
+{'name': 'twitter:image:width', 'content': '1200'}
+{'name': 'twitter:image:height', 'content': '630'}
+{'name': 'twitter:card', 'content': 'summary_large_image'}
+{'name': 'twitter:creator', 'content': '@marketwatch'}
+{'name': 'twitter:image', 'content': 'https://s.wsj.net/public/resources/MWimages/MW-EG169_articl_NS_20160223171404.png'}
+{'name': 'twitter:description', 'content': 'Canadian Dollar currency overview from MarketWatch.'}
+{'name': 'article:publisher', 'content': 'https://www.facebook.com/marketwatch'}
+{'name': 'theme-color', 'content': '#2e2e2f'}
+{'name': 'chartjs', 'content': 'https://sts3.wsj.net/bucket-a/maggie/static/js/chart-eb34acf0ea.min.js'}
+{'name': 'parsely-title', 'content': 'Canadian Dollar - USDCAD Currency Overview - MarketWatch'}
+{'name': 'parsely-link', 'content': 'https://www.marketwatch.com/investing/currency/usdcad'}
+{'name': 'parsely-type', 'content': 'post'}
+{'name': 'parsely-section', 'content': 'Quotes'}
+{'name': 'parsely-tags', 'content': 'PageType: Quotes, US:USDCAD,Currency, Tullett Prebon, XTUP, page-Index'}
