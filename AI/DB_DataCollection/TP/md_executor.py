@@ -47,8 +47,8 @@ def get_current_dataset():
     try:
         client = boto3.resource('s3')
 
-        bucket='poc-developers'
-        key='dataset.csv'
+        bucket=' '
+        key=' '
 
         client.Object(bucket,key).download_file(key)
         print("The current dataset has moved to a local level")
@@ -64,8 +64,8 @@ def update_dataset():
     try:
         client = boto3.resource('s3')
 
-        bucket='poc-developers'
-        key='dataset.csv'
+        bucket=' '
+        key=' '
 
         client.Object(bucket,key).upload_file(key)
 
