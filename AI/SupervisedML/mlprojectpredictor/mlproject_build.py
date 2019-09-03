@@ -23,7 +23,7 @@ def getvectorizer():
     vectkey = "vectorizer.pickle"
     vectorizerpath = dir_path+"/"+vectkey
     client = boto3.client("s3")
-    response = client.download_file("poc-developers",vectkey,vectorizerpath)
+    response = client.download_file("bucket",vectkey,vectorizerpath)
         
     print("The file has been download successfully at local path")
     
