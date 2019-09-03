@@ -6,7 +6,7 @@ provider:
     memorySize: 512
     timeout: 600
     versionFunction: False
-    role: "arn:aws:iam::220045431664:role/lambdabasicrole"
+    role: "arn:aws:iam::account:role/lambdabasicrole"
     
 
 functions:
@@ -15,7 +15,7 @@ functions:
         name: "mlprojectsports"
         description: "Here is the function to execute the backend of an ML prediction, project college"
         layers:
-            - "arn:aws:lambda:us-east-1:220045431664:layer:mldependency:1"
+            - "arn:aws:lambda:region:account:layer:mldependency:1"
             
         
         
