@@ -1,0 +1,27 @@
+service: collegeproject
+
+provider:
+    name: aws
+    runtime: python3.6
+    memorySize: 512
+    timeout: 600
+    versionFunction: False
+    role: "arn:aws:iam::220045431664:role/lambdabasicrole"
+    
+
+functions:
+    mlprediction:
+        handler: ml_main.lambda_handler
+        name: "mlprojectsports"
+        description: "Here is the function to execute the backend of an ML prediction, project college"
+        layers:
+            - "arn:aws:lambda:us-east-1:220045431664:layer:mldependency:1"
+            
+        
+        
+package:
+  exclude:
+    - node_modules/**      
+        
+plugins:
+  - serverless-python-requirements

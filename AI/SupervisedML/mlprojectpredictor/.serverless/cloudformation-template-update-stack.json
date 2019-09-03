@@ -1,0 +1,74 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "MlpredictionLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/mlprojectsports"
+      }
+    },
+    "MlpredictionLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/collegeproject/dev/1567540300044-2019-09-03T19:51:40.044Z/collegeproject.zip"
+        },
+        "FunctionName": "mlprojectsports",
+        "Handler": "ml_main.lambda_handler",
+        "MemorySize": 512,
+        "Role": "arn:aws:iam::220045431664:role/lambdabasicrole",
+        "Runtime": "python3.6",
+        "Timeout": 600,
+        "Description": "Here is the function to execute the backend of an ML prediction, project college",
+        "Layers": [
+          "arn:aws:lambda:us-east-1:220045431664:layer:mldependency:1"
+        ]
+      },
+      "DependsOn": [
+        "MlpredictionLogGroup"
+      ]
+    },
+    "MlpredictionLambdaVersionQe83EUe2aR5r1GYe46i4EyZl2gTHM5DFn2eIPfl6E": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "MlpredictionLambdaFunction"
+        },
+        "CodeSha256": "Ad3vKJ+KbZZoxoLne1dwzq/rbjfSc6Hj5yreOENtdvE=",
+        "Description": "Here is the function to execute the backend of an ML prediction, project college"
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      }
+    },
+    "MlpredictionLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "MlpredictionLambdaVersionQe83EUe2aR5r1GYe46i4EyZl2gTHM5DFn2eIPfl6E"
+      }
+    }
+  }
+}
